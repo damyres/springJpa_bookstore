@@ -10,6 +10,8 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,11 +29,16 @@ public class BookModelService {
         this.publisherRepository = publisherRepository;
     }
 
+
+    public List<BookModel> getAllBooks() {
+        return bookModelRepository.findAll();
+    }
+
     @Transactional //garante um rollback
     public BookModel save(final BookRecordDto bookRecordDto) {
         BookModel book = new BookModel();
         book.setTitle(bookRecordDto.title());
-        book.setPublisher(publisherRepository.findById(bookRecordDto.publishedId()).get());
+        book.setPublisher(publisherRepository.findById(bookRecordDto.publisherId()).get());
         book.setAuthors(authorRepository.findAllById(bookRecordDto.authorIds()).stream().collect(Collectors.toSet()));
 
         ReviewModel reviewModel = new ReviewModel();
@@ -42,4 +49,8 @@ public class BookModelService {
         return bookModelRepository.save(book);
     }
 
+    @Transactional
+    public void delete(UUID id){
+        bookModelRepository.deleteById(id);
+    }
 }
