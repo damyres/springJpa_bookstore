@@ -7,10 +7,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class PublisherService {
 
-    private final PublisherRepository repository;
+    private final PublisherRepository publisherRepository;
 
     @Autowired
-    public PublisherService(final PublisherRepository repository){
-        this.repository = repository;
+    public PublisherService(final PublisherRepository publisherRepository){
+        this.publisherRepository = publisherRepository;
     }
 }

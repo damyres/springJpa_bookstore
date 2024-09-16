@@ -7,11 +7,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthorService {
 
-    private final AuthorRepository repository;
+    private final AuthorRepository authorRepository;
 
     @Autowired
-    public AuthorService(final AuthorRepository repository){
-        this.repository = repository;
+    public AuthorService(final AuthorRepository authorRepository){
+        this.authorRepository = authorRepository;
     }
 
 }
